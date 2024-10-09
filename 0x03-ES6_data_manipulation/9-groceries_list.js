@@ -14,4 +14,3 @@ const getGroceryMap = () => {
 };
 
 export default getGroceryMap;
-
