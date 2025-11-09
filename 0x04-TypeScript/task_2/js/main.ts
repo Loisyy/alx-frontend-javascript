@@ -38,22 +38,18 @@ class Teacher implements TeacherInterface {
     }
 }
 
-function createEmployee(salary: number | string): Teacher | Director {
-    if (salary < 500) {
+function createEmployee(salary: number | string): Director | Teacher {
+    if (typeof salary === 'number' && salary < 500) {
         return new Teacher();
     }
     return new Director();
 }
 
-console.log(createEmployee(200));
-console.log(createEmployee(1000));
-console.log(createEmployee('$500'));
-
-export function isDirector(employee: Teacher | Director): employee is Director {
+function isDirector(employee: Director | Teacher): employee is Director {
     return employee instanceof Director;
 }
 
-export function executeWork(employee: Teacher | Director): string {
+function executeWork(employee: Director | Teacher): string {
     if (isDirector(employee)) {
         return employee.workDirectorTasks();
     }
@@ -62,15 +58,3 @@ export function executeWork(employee: Teacher | Director): string {
 
 console.log(executeWork(createEmployee(200)));
 console.log(executeWork(createEmployee(1000)));
-
-type Subjects = 'Math' | 'History';
-
-export function teachClass(todayClass: Subjects): string {
-    if (todayClass === 'Math') {
-        return 'Teaching Math';
-    }
-    return 'Teaching History';
-}
-
-console.log(teachClass('Math'));
-console.log(teachClass('History'));
