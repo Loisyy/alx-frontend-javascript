@@ -1,4 +1,3 @@
-
 interface DirectorInterface {
     workFromHome(): string;
     getCoffeeBreak(): string;
@@ -44,27 +43,28 @@ function createEmployee(salary: number | string): Teacher | Director {
 }
 
 console.log(createEmployee(200));
-
 console.log(createEmployee(1000));
-
 console.log(createEmployee('$500'));
 
-const isDirector = (employee: Teacher | Director): boolean => employee instanceof Director;
+// Updated exactly as required
+export function isDirector(employee: Teacher | Director): boolean {
+    return employee instanceof Director;
+}
 
-const executeWork = (employee: Teacher | Director): string => {
-    let res;
-    isDirector(employee) ? res = (employee as Director).workDirectorTasks() : res = (employee as Teacher).workTeacherTasks();
-    return res;
-};
+export function executeWork(employee: Teacher | Director): string {
+    return isDirector(employee)
+        ? employee.workDirectorTasks()
+        : employee.workTeacherTasks();
+}
 
 console.log(executeWork(createEmployee(200)));
-
 console.log(executeWork(createEmployee(1000)));
 
 type Subjects = 'Math' | 'History';
 
-const teachClass = (todayClass: Subjects): string => todayClass === 'Math' ? 'Teaching Math' : 'Teaching History';
+export function teachClass(todayClass: Subjects): string {
+    return todayClass === 'Math' ? 'Teaching Math' : 'Teaching History';
+}
 
 console.log(teachClass('Math'));
-
 console.log(teachClass('History'));
